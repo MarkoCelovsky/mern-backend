@@ -1,4 +1,5 @@
 const express = require("express");
+const mongoose = require("mongoose");
 const HttpError = require("./model/http-error");
 
 const placesRoutes = require("./routes/places");
@@ -22,6 +23,14 @@ app.use((err, req, res, next) => {
   res.json({ message: err.message || "An unknown error occured." });
 });
 
-app.listen(8080, () => {
-  console.log("Listening on port 8080.");
-});
+mongoose
+  .connect(
+    "mongodb+srv://mcelovsky-admin:MiroKo@cluster0.u8wuchk.mongodb.net/places?retryWrites=true&w=majority"
+  )
+  .then(() => {
+    app.listen(8080);
+    console.log("Listening on port 8080.");
+  })
+  .catch((err) => {
+    console.error(err);
+  });

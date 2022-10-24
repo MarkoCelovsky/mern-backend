@@ -1,7 +1,6 @@
 const { Router } = require("express");
 const { check } = require("express-validator");
 
-const HttpError = require("../model/http-error");
 const placesController = require("../controllers/places");
 
 const router = Router();
@@ -12,11 +11,7 @@ router.get("/:pid", placesController.getPlaceById);
 
 router.patch(
   "/:pid",
-  [
-    check("title").not().isEmpty(),
-    check("description").isLength({ min: 5 }),
-    check("address").not().isEmpty(),
-  ],
+  [check("title").not().isEmpty(), check("description").isLength({ min: 5 })],
   placesController.updatePlace
 );
 
