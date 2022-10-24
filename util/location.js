@@ -1,6 +1,6 @@
 const axios = require("axios");
 const HttpError = require("../model/http-error");
-const API_KEY = require("../api-key");
+const { apiKey } = require("../api-key");
 
 const getCoordsFromAddress = async (address) => {
   const { data } = await axios.get(
