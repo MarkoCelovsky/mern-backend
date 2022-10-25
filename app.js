@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const { mongoDb } = require("./api-key");
 const HttpError = require("./model/http-error");
 
 const placesRoutes = require("./routes/places");
@@ -24,9 +25,7 @@ app.use((err, req, res, next) => {
 });
 
 mongoose
-  .connect(
-    "mongodb+srv://mcelovsky-admin:MiroKo@cluster0.u8wuchk.mongodb.net/places?retryWrites=true&w=majority"
-  )
+  .connect(mongoDb)
   .then(() => {
     app.listen(8080);
     console.log("Listening on port 8080.");
