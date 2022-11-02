@@ -1,6 +1,5 @@
 const { Router } = require("express");
 const { check } = require("express-validator");
-const HttpError = require("../model/http-error");
 const usersController = require("../controllers/users");
 
 const router = Router();
