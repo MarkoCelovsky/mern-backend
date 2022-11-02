@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const HttpError = require("./model/http-error");
+require("dotenv").config();
 
 const placesRoutes = require("./routes/places");
 const usersRoutes = require("./routes/users");
@@ -36,7 +37,7 @@ app.use((err, req, res, next) => {
 });
 
 mongoose
-  .connect(`${process.env.MONGO_DB}`)
+  .connect(process.env.MONGO_DB)
   .then(() => {
     app.listen(8080);
     console.log("Listening on port 8080.");

@@ -60,7 +60,7 @@ const signup = async (req, res, next) => {
   try {
     await createdUser.save();
   } catch (error) {
-    const err = new HttpError(error, 500);
+    const err = new HttpError("Could not save this user.", 500);
     return next(err);
   }
 

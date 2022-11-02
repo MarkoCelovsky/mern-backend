@@ -29,11 +29,11 @@ const getUserPlaces = async (req, res, next) => {
   try {
     userWithPlaces = await User.findById(userId).populate("places");
   } catch (error) {
-    const err = new HttpError(error, 500);
+    const err = new HttpError("User with this id does not exist.", 500);
     return next(err);
   }
 
-  if (!userWithPlaces || userWithPlaces.places.length === 0) {
+  if (!userWithPlaces) {
     return next(
       new HttpError("Could not find any places for specified user!", 404)
     );
@@ -63,7 +63,7 @@ const updatePlace = async (req, res, next) => {
   try {
     place = await Place.findById(placeId);
   } catch (error) {
-    const err = new HttpError(error, 500);
+    const err = new HttpError("Could not find place to update.", 500);
     return next(err);
   }
 
@@ -71,7 +71,6 @@ const updatePlace = async (req, res, next) => {
   place.description = description;
 
   try {
-    console.log(place);
     await place.save();
   } catch (error) {
     const err = new HttpError(error, 500);
