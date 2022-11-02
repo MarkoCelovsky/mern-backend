@@ -6,7 +6,7 @@ const User = require("../model/user");
 const getUsers = async (req, res, next) => {
   let users;
   try {
-    users = await User.find({}, "email name");
+    users = await User.find({}, "email name image places");
   } catch (error) {
     return next(new HttpError("Could not find any users", 500));
   }
@@ -86,7 +86,10 @@ const login = async (req, res, next) => {
       )
     );
   }
-  res.json({ message: "Logged in!" });
+  res.json({
+    message: "Logged in!",
+    user: exisitngUser.toObject({ getters: true }),
+  });
 };
 
 exports.getUsers = getUsers;
